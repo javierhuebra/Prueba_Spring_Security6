@@ -45,10 +45,10 @@ public class SecirityConfing {
     }
     */
 
-    @Bean
-    UserDetailsService userDetailsService(DataSource dataSource){
-        return new JdbcUserDetailsManager(dataSource);
-    }
+//    @Bean
+//    UserDetailsService userDetailsService(DataSource dataSource){
+//        return new JdbcUserDetailsManager(dataSource);
+//    }
     @Bean // Bean se pone para que tome la config
     PasswordEncoder passwordEncoder(){ // Esto es para desarrollar nuestra seguridad, para que ignore la encriptación de la contraseña que exige Spring Security
         return NoOpPasswordEncoder.getInstance();
