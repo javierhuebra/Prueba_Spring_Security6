@@ -1,24 +1,32 @@
 package com.javier.app_security.controller;
 
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/welcome")
 public class WelcomeController {
     @GetMapping
-    public Map<String, String> welcome() {
+    public Map<String, Object> welcome() {
+        Map<String, Object> jsonObject = Map.of(
+                "response", Map.of("message", "Welcome to the application"),
+                "status", 200
+        );
 
-        Map<String, String> response = new HashMap<>();
-        response.put("message", "Welcome to the application");
-        response.put("status", "success");
-        response.put("version", "1.0");
-        return response;
+
+
+        //Extraigo
+        Map<String,Object> extraccion = (Map<String,Object>)jsonObject.get("response");
+        System.out.println(extraccion.get("message"));
+
+
+
+
+        return jsonObject;
 
         //return Map.of("message", "Welcome to the application");
 
