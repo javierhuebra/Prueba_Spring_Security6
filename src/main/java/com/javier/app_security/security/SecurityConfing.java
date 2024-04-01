@@ -1,33 +1,27 @@
 package com.javier.app_security.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
-import org.springframework.security.web.csrf.CsrfTokenRequestHandler;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 
-import javax.sql.DataSource;
 import java.util.List;
 
 @Configuration
-public class SecirityConfing {
+//@EnableMethodSecurity
+public class SecurityConfing {
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
@@ -35,8 +29,14 @@ public class SecirityConfing {
         requestHandler.setCsrfRequestAttributeName("_csrf");
 
         http.authorizeHttpRequests(auth ->
-                auth.requestMatchers("/loans","/balance", "accounts", "/cards").authenticated()
-                    .anyRequest().permitAll())
+               // auth.requestMatchers("/loans","/balance", "accounts", "/cards")
+                        auth
+                                .requestMatchers("/loans").hasAuthority("VIEW_LOANS")
+                                .requestMatchers("/balance").hasAuthority("VIEW_BALANCE")
+                                .requestMatchers("/cards").hasRole("VIEW_CARDS")
+                                .requestMatchers("/accounts").hasAnyAuthority("VIEW_ACCOUNT","VIEW_CARDS")
+                                .anyRequest()
+                                .permitAll())
                 .formLogin(Customizer.withDefaults()) // Este método configura un formulario de inicio de sesión básico.
                 .httpBasic(Customizer.withDefaults()); // Esto permite la autenticación mediante el envío de credenciales en el encabezado Authorization de la solicitud HTTP.
         http.cors(cors -> corsConfigurationSource());
