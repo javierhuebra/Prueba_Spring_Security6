@@ -31,10 +31,8 @@ public class SecurityConfing {
         http.authorizeHttpRequests(auth ->
                // auth.requestMatchers("/loans","/balance", "accounts", "/cards")
                         auth
-                                .requestMatchers("/loans").hasAuthority("VIEW_LOANS")
-                                .requestMatchers("/balance").hasAuthority("VIEW_BALANCE")
-                                .requestMatchers("/cards").hasRole("VIEW_CARDS")
-                                .requestMatchers("/accounts").hasAnyAuthority("VIEW_ACCOUNT","VIEW_CARDS")
+                                .requestMatchers("/loans", "/balance").hasRole("USER")
+                                .requestMatchers("/accounts", "/cards").hasRole("ADMIN")
                                 .anyRequest()
                                 .permitAll())
                 .formLogin(Customizer.withDefaults()) // Este método configura un formulario de inicio de sesión básico.

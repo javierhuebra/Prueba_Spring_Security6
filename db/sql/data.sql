@@ -5,10 +5,10 @@ insert into customers (email, pwd) VALUES
                                     ('balance@correo.com', 'to_be_encoded');
 
 insert into roles (role_name, description, id_customer) VALUES
-    ('VIEW_ACCOUNT', 'Cant view account endpoint', 1),
-    ('VIEW_CARDS', 'Cant view cards endpoint', 2),
-    ('VIEW_LOANS', 'Cant view loans endpoints', 3),
-    ('VIEW_BALANCE', 'Cant view balance endpoints', 4);
+    ('ROLE_ADMIN', 'Cant view account endpoint', 1),
+    ('ROLE_ADMIN', 'Cant view cards endpoint', 2),
+    ('ROLE_USER', 'Cant view loans endpoints', 3),
+    ('ROLE_USER', 'Cant view balance endpoints', 4);
 
 
 
