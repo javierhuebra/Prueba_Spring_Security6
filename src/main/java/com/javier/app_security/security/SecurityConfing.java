@@ -25,6 +25,7 @@ public class SecurityConfing {
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+        http.addFilterBefore(new ApiKeyFilter(), BasicAuthenticationFilter.class); //Lo quiero antes de la autenticación básica de Spring Security porque si no tiene api key le tengo que decir que no
         var requestHandler = new CsrfTokenRequestAttributeHandler();
         requestHandler.setCsrfRequestAttributeName("_csrf");
 
