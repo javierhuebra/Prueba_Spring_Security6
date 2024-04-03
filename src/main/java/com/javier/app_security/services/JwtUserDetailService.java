@@ -1,4 +1,4 @@
-package com.javier.app_security.security;
+package com.javier.app_security.services;
 
 import com.javier.app_security.repositories.CustomerRepository;
 import lombok.AllArgsConstructor;
