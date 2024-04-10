@@ -37,8 +37,8 @@ public class SecurityConfing {
                         auth
                                 .requestMatchers("/loans", "/balance").hasRole("USER")
                                 .requestMatchers("/accounts", "/cards").hasRole("ADMIN")
-                                .anyRequest()
-                                .permitAll())
+                                .anyRequest().permitAll()
+                )
                 .formLogin(Customizer.withDefaults()) // Este método configura un formulario de inicio de sesión básico.
                 .httpBasic(Customizer.withDefaults()); // Esto permite la autenticación mediante el envío de credenciales en el encabezado Authorization de la solicitud HTTP.
         http.cors(cors -> corsConfigurationSource());
